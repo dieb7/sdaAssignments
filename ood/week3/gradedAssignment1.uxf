@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>770</w>
+      <h>790</h>
+    </coordinates>
+    <panel_attributes>title=New Item added
+obj=AddItemActivity~a | :ItemList~b | :Dimensions~c | Item~d
+
+
+
+combinedFragment=onCreate()~onCreate
+	on=a
+	a-&gt;&gt;&gt;b: loadItems();on=b
+	b.&gt;&gt;&gt;a: Items loaded; off=b
+	off=a
+--=onCreate
+
+combinedFragment=saveItem()~saveItem
+	on=a
+	a-&gt;&gt;&gt;c: Dimesions constructor();on=c
+	c.&gt;&gt;&gt;a: Dimensions object; off=c
+
+	a-&gt;&gt;&gt;d: Item constructor(Dimensions object);on=d
+	d.&gt;&gt;&gt;a: Item object; off=d
+
+	a-&gt;&gt;&gt;b: addItem(Item Object);on=b
+	b.&gt;&gt;&gt;a: Item added; off=b
+
+	a-&gt;&gt;&gt;b: saveItems();on=b
+	b.&gt;&gt;&gt;a: Items saveed; off=b
+	
+	off=a
+--=saveItem
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
