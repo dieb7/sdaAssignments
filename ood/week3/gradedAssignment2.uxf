@@ -4,8 +4,8 @@
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>390</x>
-      <y>240</y>
+      <x>190</x>
+      <y>210</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
@@ -21,14 +21,14 @@ valign=top
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>400</x>
-      <y>430</y>
+      <x>200</x>
+      <y>400</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>Available with photo
 --
-image = itemImage
+image = item_image
 status = "Available"
 --
 valign=top
@@ -38,8 +38,8 @@ valign=top
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>890</x>
-      <y>240</y>
+      <x>690</x>
+      <y>210</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
@@ -55,14 +55,14 @@ valign=top
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>880</x>
-      <y>430</y>
+      <x>680</x>
+      <y>400</y>
       <w>180</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>Borrowed with photo
 --
-image = itemImage
+image = item_image
 status = "Borrowed"
 --
 valign=top
@@ -72,8 +72,8 @@ valign=top
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>250</x>
-      <y>270</y>
+      <x>50</x>
+      <y>240</y>
       <w>20</w>
       <h>20</h>
     </coordinates>
@@ -83,8 +83,8 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>260</x>
-      <y>270</y>
+      <x>60</x>
+      <y>240</y>
       <w>150</w>
       <h>30</h>
     </coordinates>
@@ -94,66 +94,66 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>260</y>
+      <x>360</x>
+      <y>230</y>
       <w>350</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-setStatus[status == "Borrowed"]
-/ status = "Borrowed"</panel_attributes>
+setStatus[new_status == "Borrowed"]
+/ status = new_status</panel_attributes>
     <additional_attributes>10.0;20.0;330.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>500</y>
+      <x>280</x>
+      <y>470</y>
       <w>490</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-setStatus[status == "Borrowed"]
-/ status = "Available"</panel_attributes>
+setStatus[new_status == "Available"]
+/ status = new_status</panel_attributes>
     <additional_attributes>470.0;10.0;470.0;110.0;10.0;110.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>130</y>
+      <x>280</x>
+      <y>100</y>
       <w>520</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-setStatus[status == "Borrowed"]
-/ status = "Available"</panel_attributes>
+setStatus[new_status == "Available"]
+/ status = new_status</panel_attributes>
     <additional_attributes>500.0;110.0;500.0;20.0;10.0;20.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>310</y>
-      <w>200</w>
+      <x>280</x>
+      <y>280</y>
+      <w>240</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-addImage[image != null]
-/image = itemImage</panel_attributes>
+addImage[item_image != null]
+/image = item_image</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>450</y>
+      <x>370</x>
+      <y>420</y>
       <w>330</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-setStatus[status == "Borrowed"]
-/ status = "Borrowed"</panel_attributes>
+setStatus[new_status == "Borrowed"]
+/ status = new_status</panel_attributes>
     <additional_attributes>10.0;20.0;310.0;20.0</additional_attributes>
   </element>
 </diagram>
