@@ -26,6 +26,7 @@
         android:id="@+id/my_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:headerDividersEnabled="false"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="75dp" />
 

@@ -25,6 +25,15 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <Button
+            android:id="@+id/to_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="contactsActivity"
+            android:text="Contacts"
+            android:visibility="visible" />
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
