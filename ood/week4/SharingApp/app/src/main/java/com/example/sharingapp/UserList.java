@@ -13,14 +13,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * Created by diebm on 08/10/17.
+ * Created by diebm on 10/10/17.
  */
 
 public class UserList {
     private static ArrayList<User> users;
     private String FILENAME = "user_file.sav";
 
-    public UserList(String FILENAME) {
+    public UserList() {
         users = new ArrayList<User>();
     }
 
@@ -55,7 +55,7 @@ public class UserList {
     public int getIndex(User user) {
         int pos = 0;
         for (User u : users) {
-            if (user.getId().equals(u.getId())) {
+            if (user.getUsername().equals(u.getUsername())) {
                 return pos;
             }
             pos = pos+1;
@@ -65,7 +65,7 @@ public class UserList {
 
     public boolean hasUser(User user) {
         for (User u : users) {
-            if (user.getId().equals(u.getId())) {
+            if (user.getUsername().equals(u.getUsername())) {
                 return true;
             }
         }
@@ -74,15 +74,21 @@ public class UserList {
 
     public User getUserByUsername(String username) {
         for (User u : users) {
-            if (u.getId().equals(username)) {
+            if (u.getUsername().equals(username)) {
                 return u;
             }
         }
         return null;
     }
 
-    public void loadUsers(Context context) {
+    public boolean isUserNameAvailable(String username) {
+        if (getUserByUsername(username) == null) {
+            return true;
+        }
+        return false;
+    }
 
+    public void loadUsers(Context context) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
             InputStreamReader isr = new InputStreamReader(fis);
@@ -110,12 +116,6 @@ public class UserList {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    public boolean isUserNameAvailable(String username) {
-        if (getUserByUsername(username) != null) {
-            return false;
-        }
-        return true;
     }
 }

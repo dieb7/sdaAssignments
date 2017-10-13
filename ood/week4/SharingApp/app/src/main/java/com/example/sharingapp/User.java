@@ -1,7 +1,7 @@
 package com.example.sharingapp;
 
 /**
- * Created by diebm on 08/10/17.
+ * Created by diebm on 10/10/17.
  */
 
 public class User {
