@@ -6,10 +6,11 @@ import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -39,6 +40,11 @@ public class EditItemActivity extends AppCompatActivity {
     private TextView  borrower_tv;
     private Switch status;
 
+    // Create and populate a list of users
+    private Spinner borrower_spinner;
+    private UserList userList = new UserList();
+    private  UserAdapter listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +58,20 @@ public class EditItemActivity extends AppCompatActivity {
         height = (EditText) findViewById(R.id.height);
         borrower = (EditText) findViewById(R.id.borrower);
         borrower_tv = (TextView) findViewById(R.id.borrower_tv);
+        borrower_spinner = (Spinner) findViewById(R.id.borrower_spinner);
         photo = (ImageView) findViewById(R.id.image_view);
         status = (Switch) findViewById(R.id.available_switch);
 
         context = getApplicationContext();
+
+        userList.loadUsers(context);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, userList.getAllUsernames());
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        borrower_spinner.setAdapter(adapter);
+
         item_list.loadItems(context);
 
         // get intent from HomeActivity
@@ -81,6 +97,7 @@ public class EditItemActivity extends AppCompatActivity {
         } else {
             borrower_tv.setVisibility(View.GONE);
             borrower.setVisibility(View.GONE);
+            borrower_spinner.setVisibility(View.GONE);
         }
 
         image = item.getImage();
@@ -193,6 +210,7 @@ public class EditItemActivity extends AppCompatActivity {
             // means was previously borrowed
             borrower.setVisibility(View.GONE);
             borrower_tv.setVisibility(View.GONE);
+            borrower_spinner.setVisibility(View.GONE);
             item.setBorrower("");
             item.setStatus("Available");
 
@@ -200,6 +218,7 @@ public class EditItemActivity extends AppCompatActivity {
             // means was previously available
             borrower.setVisibility(View.VISIBLE);
             borrower_tv.setVisibility(View.VISIBLE);
+            borrower_spinner.setVisibility(View.VISIBLE);
         }
     }
 }

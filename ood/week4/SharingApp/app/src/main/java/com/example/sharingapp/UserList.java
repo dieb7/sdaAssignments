@@ -32,8 +32,12 @@ public class UserList {
         this.users = users;
     }
 
-    public ArrayList<User> getAllUsernames() {
-        return users;
+    public ArrayList<String> getAllUsernames() {
+        ArrayList<String> usernames = new ArrayList<String>();
+        for (User u : users) {
+            usernames.add(u.getUsername());
+        }
+        return usernames;
     }
 
     public void addUser(User user) {
