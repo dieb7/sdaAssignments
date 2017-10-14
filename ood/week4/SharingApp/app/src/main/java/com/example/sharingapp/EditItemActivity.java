@@ -94,6 +94,8 @@ public class EditItemActivity extends AppCompatActivity {
         if (status_str.equals("Borrowed")) {
             status.setChecked(false);
             borrower.setText(item.getBorrower());
+            User user = item.getUser_borrower();
+            borrower_spinner.setSelection(userList.getIndex(user));
         } else {
             borrower_tv.setVisibility(View.GONE);
             borrower.setVisibility(View.GONE);
@@ -191,6 +193,7 @@ public class EditItemActivity extends AppCompatActivity {
             // means borrowed
             updated_item.setStatus("Borrowed");
             updated_item.setBorrower(borrower_str);
+            updated_item.setUser_borrower(userList.getUser(borrower_spinner.getSelectedItemPosition()));
         }
         item_list.addItem(updated_item);
 
@@ -212,6 +215,7 @@ public class EditItemActivity extends AppCompatActivity {
             borrower_tv.setVisibility(View.GONE);
             borrower_spinner.setVisibility(View.GONE);
             item.setBorrower("");
+            item.setUser_borrower(null);
             item.setStatus("Available");
 
         } else {
