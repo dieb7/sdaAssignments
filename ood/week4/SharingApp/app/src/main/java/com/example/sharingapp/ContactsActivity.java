@@ -77,10 +77,6 @@ public class ContactsActivity extends AppCompatActivity {
                                 }
                             });
                     alert_dialog.show();
-
-
-
-//                    ((TextView) findViewById(R.id.contact_name)).setError("Can't Edit a borrower!");
                 }
                 return true;
             }
