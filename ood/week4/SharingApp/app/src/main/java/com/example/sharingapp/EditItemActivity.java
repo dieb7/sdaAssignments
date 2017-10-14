@@ -37,10 +37,10 @@ public class EditItemActivity extends AppCompatActivity {
     private EditText width;
     private EditText height;
     private TextView  borrower_tv;
+    private Spinner borrower_spinner;
     private Switch status;
 
     // Create and populate a list of users
-    private Spinner borrower_spinner;
     private UserList userList = new UserList();
 
     @Override

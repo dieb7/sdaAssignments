@@ -26,7 +26,7 @@
                 android:text="Editing Contact:" />
 
             <TextView
-                android:id="@+id/contactNameTextView"
+                android:id="@+id/contact_name_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -47,7 +47,7 @@
                 android:text="New Email:" />
 
             <EditText
-                android:id="@+id/contactNewEmailtextEdit"
+                android:id="@+id/contact_new_email_te"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="saveEditedUser"
+                android:onClick="saveUser"
                 android:text="Save" />
         </LinearLayout>
 

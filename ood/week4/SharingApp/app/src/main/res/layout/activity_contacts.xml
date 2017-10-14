@@ -36,7 +36,7 @@
                 tools:layout_editor_absoluteY="0dp" />
 
             <ListView
-                android:id="@+id/contactsListView"
+                android:id="@+id/contacts_lv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />

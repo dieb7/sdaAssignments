@@ -9,40 +9,36 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class EditUserActivity extends AppCompatActivity {
-
+    private TextView username;
     private EditText email;
-
     private UserList user_list = new UserList();
-
-    private Context context;
-
     private User user;
-
-    private TextView userNameTextView;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
-        email = (EditText) findViewById(R.id.contactNewEmailtextEdit);
+        email = (EditText) findViewById(R.id.contact_new_email_te);
 
         context = getApplicationContext();
 
         // We don't get a reference to an existing userlist object, we create one an load its contents
         user_list.loadUsers(context);
 
-        userNameTextView = (TextView) findViewById(R.id.contactNameTextView);
+        username = (TextView) findViewById(R.id.contact_name_tv);
+
         // get intent from parent activity
         Intent intent = getIntent();
         int pos = intent.getIntExtra("position", 0);
 
         user = user_list.getUser(pos);
 
-        userNameTextView.setText(user.getUsername());
+        username.setText(user.getUsername());
     }
 
-    public void saveEditedUser(View view) {
+    public void saveUser(View view) {
         String email_str = email.getText().toString();
 
         if (email_str.equals("")) {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 
 public class UserAdapter extends ArrayAdapter<User> {
+    private LayoutInflater inflater;
     private Context context;
     ArrayList<User> users;
 
@@ -25,15 +26,15 @@ public class UserAdapter extends ArrayAdapter<User> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.contactrow, parent, false);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View row_view = inflater.inflate(R.layout.contactrow, parent, false);
 
-        TextView userNameTextView = (TextView) rowView.findViewById(R.id.contactName);
-        TextView emailTextView = (TextView) rowView.findViewById(R.id.contactEmail);
+        TextView username_tv = (TextView) row_view.findViewById(R.id.contact_name);
+        TextView email_tv = (TextView) row_view.findViewById(R.id.contact_email);
 
-        userNameTextView.setText(users.get(position).getUsername());
-        emailTextView.setText(users.get(position).getEmail());
+        username_tv.setText(users.get(position).getUsername());
+        email_tv.setText(users.get(position).getEmail());
 
-        return rowView;
+        return row_view;
     }
 }

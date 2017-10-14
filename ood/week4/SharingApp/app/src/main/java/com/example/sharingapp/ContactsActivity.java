@@ -1,25 +1,24 @@
 package com.example.sharingapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import java.security.AccessControlContext;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.security.AccessController.getContext;
+import android.widget.TextView;
 
 public class ContactsActivity extends AppCompatActivity {
-
+    private UserList user_list;
+    private UserList active_borrowers_list;
+    private ItemList item_list;
     private ListView my_contacts;
-    private ItemList item_list = new ItemList();
-    private ArrayAdapter<User> listAdapter;
+    private ArrayAdapter<User> adapter;
     Context context;
 
     @Override
@@ -27,19 +26,18 @@ public class ContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-        // Find the listView resource
-        my_contacts = (ListView) findViewById(R.id.contactsListView);
-
-        // Create and populate a list of users
-        final UserList userList = new UserList();
-
-        userList.loadUsers(getApplicationContext());
-
-        listAdapter = new UserAdapter(this, userList.getUsers());
-
-        my_contacts.setAdapter(listAdapter);
-
+        item_list = new ItemList();
         item_list.loadItems(getApplicationContext());
+
+        // Find the listView resource
+        my_contacts = (ListView) findViewById(R.id.contacts_lv);
+
+        user_list = new UserList();
+        user_list.loadUsers(getApplicationContext());
+
+        adapter = new UserAdapter(this, user_list.getUsers());
+
+        my_contacts.setAdapter(adapter);
 
         context = this;
 
@@ -49,24 +47,40 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
-                User user = listAdapter.getItem(pos);
+                User user = adapter.getItem(pos);
 
-                Item borrowed_item = null;
+                boolean user_is_borrower = false;
 
                 for (Item i: item_list.getItems()) {
                     if (user.getUsername().equals(i.getBorrower().getUsername())) {
-                        borrowed_item = i;
+                        user_is_borrower = true;
                     }
                 }
 
-                if (borrowed_item == null) {
-                    int meta_pos = userList.getIndex(user);
+                if (!user_is_borrower) {
+                    int meta_pos = user_list.getIndex(user);
 
                     if (meta_pos >= 0) {
                         Intent edit = new Intent(context, EditUserActivity.class);
                         edit.putExtra("position", meta_pos);
                         startActivity(edit);
                     }
+                } else {
+                    // show that user can not be edited as it is and active borrower
+                    AlertDialog alert_dialog = new AlertDialog.Builder(ContactsActivity.this).create();
+                    alert_dialog.setTitle("Contact is a borrower");
+                    alert_dialog.setMessage("Can not edit an active borrower!");
+                    alert_dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alert_dialog.show();
+
+
+
+//                    ((TextView) findViewById(R.id.contact_name)).setError("Can't Edit a borrower!");
                 }
                 return true;
             }

@@ -24,12 +24,12 @@ public class UserList {
         users = new ArrayList<User>();
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
     public void setUsers(ArrayList<User> users) {
         this.users = users;
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
     }
 
     public ArrayList<String> getAllUsernames() {
@@ -85,13 +85,6 @@ public class UserList {
         return null;
     }
 
-    public boolean isUserNameAvailable(String username) {
-        if (getUserByUsername(username) == null) {
-            return true;
-        }
-        return false;
-    }
-
     public void loadUsers(Context context) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
@@ -121,5 +114,12 @@ public class UserList {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean isUserNameAvailable(String username) {
+        if (getUserByUsername(username) == null) {
+            return true;
+        }
+        return false;
     }
 }
