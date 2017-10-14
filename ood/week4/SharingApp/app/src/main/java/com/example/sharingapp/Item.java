@@ -17,8 +17,7 @@ public class Item {
     private String description;
     private Dimensions dimensions;
     private String status;
-    private String borrower;
-    private User user_borrower;
+    private User borrower;
     protected transient Bitmap image; // Must be transient or app crashes...
     // https://forum.xda-developers.com/android/help/help-android-native-crash-debugging-t3477559
     protected String image_base64;
@@ -30,8 +29,7 @@ public class Item {
         this.description = description;
         this.dimensions = dimensions;
         this.status = "Available";
-        this.borrower = "";
-        this.user_borrower = null;
+        this.borrower = null;
         addImage(image);
 
         if (id == null){
@@ -41,12 +39,12 @@ public class Item {
         }
     }
 
-    public User getUser_borrower() {
-        return user_borrower;
+    public User getBorrower() {
+        return borrower;
     }
 
-    public void setUser_borrower(User user_borrower) {
-        this.user_borrower = user_borrower;
+    public void setBorrower(User borrower) {
+        this.borrower = borrower;
     }
 
     public String getId(){
@@ -99,14 +97,6 @@ public class Item {
 
     public String getStatus() {
         return status;
-    }
-
-    public void setBorrower(String borrower) {
-        this.borrower = borrower;
-    }
-
-    public String getBorrower() {
-        return borrower;
     }
 
     public void addImage(Bitmap new_image){

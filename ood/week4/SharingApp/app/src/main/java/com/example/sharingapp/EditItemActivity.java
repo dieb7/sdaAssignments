@@ -36,14 +36,12 @@ public class EditItemActivity extends AppCompatActivity {
     private EditText length;
     private EditText width;
     private EditText height;
-    private EditText borrower;
     private TextView  borrower_tv;
     private Switch status;
 
     // Create and populate a list of users
     private Spinner borrower_spinner;
     private UserList userList = new UserList();
-    private  UserAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +54,6 @@ public class EditItemActivity extends AppCompatActivity {
         length = (EditText) findViewById(R.id.length);
         width = (EditText) findViewById(R.id.width);
         height = (EditText) findViewById(R.id.height);
-        borrower = (EditText) findViewById(R.id.borrower);
         borrower_tv = (TextView) findViewById(R.id.borrower_tv);
         borrower_spinner = (Spinner) findViewById(R.id.borrower_spinner);
         photo = (ImageView) findViewById(R.id.image_view);
@@ -93,12 +90,10 @@ public class EditItemActivity extends AppCompatActivity {
         String status_str = item.getStatus();
         if (status_str.equals("Borrowed")) {
             status.setChecked(false);
-            borrower.setText(item.getBorrower());
-            User user = item.getUser_borrower();
+            User user = item.getBorrower();
             borrower_spinner.setSelection(userList.getIndex(user));
         } else {
             borrower_tv.setVisibility(View.GONE);
-            borrower.setVisibility(View.GONE);
             borrower_spinner.setVisibility(View.GONE);
         }
 
@@ -148,7 +143,6 @@ public class EditItemActivity extends AppCompatActivity {
         String length_str = length.getText().toString();
         String width_str = width.getText().toString();
         String height_str = height.getText().toString();
-        String borrower_str = borrower.getText().toString();
 
         Dimensions dimensions = new Dimensions(length_str, width_str, height_str);
 
@@ -192,8 +186,7 @@ public class EditItemActivity extends AppCompatActivity {
         if (!checked) {
             // means borrowed
             updated_item.setStatus("Borrowed");
-            updated_item.setBorrower(borrower_str);
-            updated_item.setUser_borrower(userList.getUser(borrower_spinner.getSelectedItemPosition()));
+            updated_item.setBorrower(userList.getUser(borrower_spinner.getSelectedItemPosition()));
         }
         item_list.addItem(updated_item);
 
@@ -211,16 +204,13 @@ public class EditItemActivity extends AppCompatActivity {
     public void toggleSwitch(View view){
         if (status.isChecked()) {
             // means was previously borrowed
-            borrower.setVisibility(View.GONE);
             borrower_tv.setVisibility(View.GONE);
             borrower_spinner.setVisibility(View.GONE);
-            item.setBorrower("");
-            item.setUser_borrower(null);
+            item.setBorrower(null);
             item.setStatus("Available");
 
         } else {
             // means was previously available
-            borrower.setVisibility(View.VISIBLE);
             borrower_tv.setVisibility(View.VISIBLE);
             borrower_spinner.setVisibility(View.VISIBLE);
         }
