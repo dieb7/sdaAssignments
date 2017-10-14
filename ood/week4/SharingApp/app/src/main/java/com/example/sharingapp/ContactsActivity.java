@@ -18,6 +18,7 @@ import static java.security.AccessController.getContext;
 public class ContactsActivity extends AppCompatActivity {
 
     private ListView my_contacts;
+    private ItemList item_list = new ItemList();
     private ArrayAdapter<User> listAdapter;
     Context context;
 
@@ -38,6 +39,8 @@ public class ContactsActivity extends AppCompatActivity {
 
         my_contacts.setAdapter(listAdapter);
 
+        item_list.loadItems(getApplicationContext());
+
         context = this;
 
         // When User is long clicked, this starts EditUserActivity
@@ -48,13 +51,22 @@ public class ContactsActivity extends AppCompatActivity {
 
                 User user = listAdapter.getItem(pos);
 
-                int meta_pos = userList.getIndex(user);
+                Item borrowed_item = null;
 
-                if (meta_pos >= 0) {
+                for (Item i: item_list.getItems()) {
+                    if (user.getUsername().equals(i.getBorrower().getUsername())) {
+                        borrowed_item = i;
+                    }
+                }
 
-                    Intent edit = new Intent(context, EditUserActivity.class);
-                    edit.putExtra("position", meta_pos);
-                    startActivity(edit);
+                if (borrowed_item == null) {
+                    int meta_pos = userList.getIndex(user);
+
+                    if (meta_pos >= 0) {
+                        Intent edit = new Intent(context, EditUserActivity.class);
+                        edit.putExtra("position", meta_pos);
+                        startActivity(edit);
+                    }
                 }
                 return true;
             }
