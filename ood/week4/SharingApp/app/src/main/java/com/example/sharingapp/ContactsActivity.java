@@ -52,7 +52,8 @@ public class ContactsActivity extends AppCompatActivity {
                 boolean user_is_borrower = false;
 
                 for (Item i: item_list.getItems()) {
-                    if (user.getUsername().equals(i.getBorrower().getUsername())) {
+                    User item_borrrower = i.getBorrower();
+                    if (item_borrrower != null && user.getUsername().equals(item_borrrower.getUsername())) {
                         user_is_borrower = true;
                     }
                 }
