@@ -55,8 +55,6 @@ public class EditUserActivity extends AppCompatActivity {
         // Reuse the user id
         String id = user.getId();
 
-        user_list.removeUser(user);
-
         // Check that username is unique AND username is changed (Note: if username was not changed
         // then this should be fine, because it was already unique.)
         if (!user_list.isUsernameAvailable(username_str) && !(user.getUsername().equals(username_str))) {
@@ -66,8 +64,8 @@ public class EditUserActivity extends AppCompatActivity {
 
         User updated_user = new User(username_str, email_str, id);
 
-        user_list.addUser(updated_user);
-        user_list.saveUsers(context);
+        EditUserCommand edit_user_command = new EditUserCommand(user_list, user, updated_user, context);
+        edit_user_command.execute();
 
          /* end EditUserActivity */
         finish();
@@ -75,8 +73,8 @@ public class EditUserActivity extends AppCompatActivity {
 
     public void deleteUser(View view) {
 
-        user_list.removeUser(user);
-        user_list.saveUsers(context);
+        DeleteUserCommand delete_user_command = new DeleteUserCommand(user_list, user, context);
+        delete_user_command.execute();
 
          /* end EditUserActivity */
         finish();

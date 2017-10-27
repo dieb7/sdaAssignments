@@ -51,8 +51,9 @@ public class AddUserActivity extends AppCompatActivity {
 
         User user = new User(username_str, email_str, null);
 
-        user_list.addUser(user);
-        user_list.saveUsers(context);
+        // Add user
+        AddUserCommand add_user_command = new AddUserCommand(user_list, user, context);
+        add_user_command.execute();
 
         /* end AddUserActivity */
         finish();
