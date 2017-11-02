@@ -17,25 +17,31 @@ import java.util.ArrayList;
  * Displays ListView of all contacts
  * Note: You will not be able to edit/delete contacts which are "active" borrowers
  */
-public class ContactsActivity extends AppCompatActivity {
+public class ContactsActivity extends AppCompatActivity implements Observer {
 
     private UserList user_list = new UserList();
+    private UserListController user_list_controller = new UserListController(user_list);
+
     private ListView my_contacts;
     private ArrayAdapter<User> adapter;
     private Context context;
     private ItemList item_list = new ItemList();
     private UserList active_borrowers_list = new UserList();
+    private boolean on_create_update = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
+        on_create_update = true;
+        user_list_controller.addObserver(this);
+
         context = getApplicationContext();
-        user_list.loadUsers(context);
+        user_list_controller.loadUsers(context);
         item_list.loadItems(context);
 
         my_contacts = (ListView) findViewById(R.id.my_contacts);
-        adapter = new UserAdapter(ContactsActivity.this, user_list.getUsers());
+        adapter = new UserAdapter(ContactsActivity.this, user_list_controller.getUsers());
         my_contacts.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -60,8 +66,8 @@ public class ContactsActivity extends AppCompatActivity {
                     }
                 }
 
-                user_list.loadUsers(context); // must load users again here
-                int meta_pos = user_list.getIndex(user);
+                user_list_controller.loadUsers(context); // must load users again here
+                int meta_pos = user_list_controller.getIndex(user);
 
                 Intent intent = new Intent(getApplicationContext(), EditUserActivity.class);
                 intent.putExtra("position", meta_pos);
@@ -70,6 +76,8 @@ public class ContactsActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        on_create_update = false;
     }
 
     @Override
@@ -77,10 +85,10 @@ public class ContactsActivity extends AppCompatActivity {
         super.onStart();
 
         context = getApplicationContext();
-        user_list.loadUsers(context);
+        user_list_controller.loadUsers(context);
 
         my_contacts = (ListView) findViewById(R.id.my_contacts);
-        adapter = new UserAdapter(ContactsActivity.this, user_list.getUsers());
+        adapter = new UserAdapter(ContactsActivity.this, user_list_controller.getUsers());
         my_contacts.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -88,5 +96,14 @@ public class ContactsActivity extends AppCompatActivity {
     public void addUserActivity(View view){
         Intent intent = new Intent(getApplicationContext(), AddUserActivity.class);
         startActivity(intent);
+    }
+
+    public void update() {
+//        if (!on_create_update) {
+//            my_contacts = (ListView) findViewById(R.id.my_contacts);
+//            adapter = new UserAdapter(ContactsActivity.this, user_list_controller.getUsers());
+//            my_contacts.setAdapter(adapter);
+//            adapter.notifyDataSetChanged();
+//        }
     }
 }
