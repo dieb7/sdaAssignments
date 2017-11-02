@@ -27,13 +27,11 @@ public class ContactsActivity extends AppCompatActivity implements Observer {
     private Context context;
     private ItemList item_list = new ItemList();
     private UserList active_borrowers_list = new UserList();
-    private boolean on_create_update = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-        on_create_update = true;
         user_list_controller.addObserver(this);
 
         context = getApplicationContext();
@@ -76,8 +74,6 @@ public class ContactsActivity extends AppCompatActivity implements Observer {
                 return true;
             }
         });
-
-        on_create_update = false;
     }
 
     @Override
@@ -99,11 +95,9 @@ public class ContactsActivity extends AppCompatActivity implements Observer {
     }
 
     public void update() {
-//        if (!on_create_update) {
-//            my_contacts = (ListView) findViewById(R.id.my_contacts);
-//            adapter = new UserAdapter(ContactsActivity.this, user_list_controller.getUsers());
-//            my_contacts.setAdapter(adapter);
-//            adapter.notifyDataSetChanged();
-//        }
+        my_contacts = (ListView) findViewById(R.id.my_contacts);
+        adapter = new UserAdapter(ContactsActivity.this, user_list_controller.getUsers());
+        my_contacts.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -28,10 +28,12 @@ public class UserAdapter extends ArrayAdapter<User> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         UserList user_list = new UserList();
-        user_list.loadUsers(context);
-        User user = user_list.getUser(position);
-        String username = "Username: " + user.getUsername();
-        String email = "Email: " + user.getEmail();
+        UserListController user_list_controller = new UserListController(user_list);
+        user_list_controller.loadUsers(context);
+        User user = user_list_controller.getUser(position);
+        UserController user_controller = new UserController(user);
+        String username = "Username: " + user_controller.getUsername();
+        String email = "Email: " + user_controller.getEmail();
 
         // Check if an existing view is being reused, otherwise inflate the view.
         if (convertView == null) {
