@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * UserListClass: holds ArrayList of Users
  */
-public class UserList {
+public class UserList extends Observable {
 
     private static ArrayList<User> users;
     private String FILENAME = "user_file.sav";
@@ -44,10 +44,12 @@ public class UserList {
 
     public void addUser(User user) {
         users.add(user);
+        this.notifyObservers();
     }
 
     public void removeUser(User user) {
         users.remove(user);
+        this.notifyObservers();
     }
 
     public User getUser(int index) {
