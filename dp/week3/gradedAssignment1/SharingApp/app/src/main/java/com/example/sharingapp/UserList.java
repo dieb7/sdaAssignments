@@ -28,6 +28,7 @@ public class UserList extends Observable {
 
     public void setUsers(ArrayList<User> user_list) {
         users = user_list;
+        this.notifyObservers();
     }
 
     public ArrayList<User> getUsers() {
@@ -112,6 +113,7 @@ public class UserList extends Observable {
         } catch (IOException e) {
             users = new ArrayList<User>();
         }
+        this.notifyObservers();
     }
 
     /**
