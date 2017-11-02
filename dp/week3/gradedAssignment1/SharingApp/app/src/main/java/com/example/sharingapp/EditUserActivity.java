@@ -12,10 +12,14 @@ import android.widget.EditText;
  * with the old user's id.
  * Note: You will not be able contacts which are "active" borrowers
  */
-public class EditUserActivity extends AppCompatActivity {
+public class EditUserActivity extends AppCompatActivity implements Observer {
 
     private UserList user_list = new UserList();
+    private UserListController user_list_controller = new UserListController(user_list);
+
     private User user;
+    private UserController user_controller;
+
     private EditText email;
     private EditText username;
     private Context context;
@@ -24,20 +28,11 @@ public class EditUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
-
         context = getApplicationContext();
-        user_list.loadUsers(context);
 
-        Intent intent = getIntent();
-        int pos = intent.getIntExtra("position", 0);
+        user_list_controller.addObserver(this);
 
-        user = user_list.getUser(pos);
-
-        username = (EditText) findViewById(R.id.username);
-        email = (EditText) findViewById(R.id.email);
-
-        username.setText(user.getUsername());
-        email.setText(user.getEmail());
+        user_list_controller.loadUsers(context);
     }
 
     public void saveUser(View view) {
@@ -53,23 +48,22 @@ public class EditUserActivity extends AppCompatActivity {
 
         // Check that username is unique AND username is changed (Note: if username was not changed
         // then this should be fine, because it was already unique.)
-        if (!user_list.isUsernameAvailable(username_str) && !(user.getUsername().equals(username_str))) {
+        if (!user_list_controller.isUsernameAvailable(username_str) && !(user_controller.getUsername().equals(username_str))) {
             username.setError("Username already taken!");
             return;
         }
 
         // Reuse the user id
-        String id = user.getId();
+        String id = user_controller.getId();
         User updated_user = new User(username_str, email_str, id);
 
         // Edit user
-        EditUserCommand edit_user_command = new EditUserCommand(user_list, user, updated_user, context);
-        edit_user_command.execute();
-
-        boolean success = edit_user_command.isExecuted();
+        boolean success = user_list_controller.editUser(user, updated_user, context);
         if (!success){
             return;
         }
+
+        user_list_controller.removeObserver(this);
 
         // End EditUserActivity
         finish();
@@ -78,15 +72,28 @@ public class EditUserActivity extends AppCompatActivity {
     public void deleteUser(View view) {
 
         // Delete user
-        DeleteUserCommand delete_user_command = new DeleteUserCommand(user_list, user, context);
-        delete_user_command.execute();
-
-        boolean success = delete_user_command.isExecuted();
+        boolean success = user_list_controller.deleteUser(user, context);
         if (!success){
             return;
         }
 
+        user_list_controller.removeObserver(this);
+
         // End EditUserActivity
         finish();
+    }
+
+    public void update() {
+        Intent intent = getIntent();
+        int pos = intent.getIntExtra("position", 0);
+
+        user = user_list_controller.getUser(pos);
+        user_controller = new UserController(user);
+
+        username = (EditText) findViewById(R.id.username);
+        email = (EditText) findViewById(R.id.email);
+
+        username.setText(user_controller.getUsername());
+        email.setText(user_controller.getEmail());
     }
 }

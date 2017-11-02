@@ -9,9 +9,11 @@ import android.widget.EditText;
 /**
  * Add a new contact
  */
-public class AddUserActivity extends AppCompatActivity {
+public class AddUserActivity extends AppCompatActivity implements Observer {
 
     private UserList user_list = new UserList();
+    private UserListController user_list_controller = new UserListController(user_list);
+
     private Context context;
 
     private EditText username;
@@ -25,8 +27,10 @@ public class AddUserActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         email = (EditText) findViewById(R.id.email);
 
+        user_list_controller.addObserver(this);
+
         context = getApplicationContext();
-        user_list.loadUsers(context);
+        user_list_controller.loadUsers(context);
     }
 
     public void saveUser(View view) {
@@ -44,7 +48,7 @@ public class AddUserActivity extends AppCompatActivity {
             return;
         }
 
-        for (User u : user_list.getUsers()) {
+        for (User u : user_list_controller.getUsers()) {
             if (u.getUsername().equals(username_str)) {
                 username.setError("Username already taken!");
                 return;
@@ -54,15 +58,18 @@ public class AddUserActivity extends AppCompatActivity {
         User user = new User(username_str, email_str, null);
 
         // Add User
-        AddUserCommand add_user_command = new AddUserCommand(user_list, user, context);
-        add_user_command.execute();
-
-        boolean success = add_user_command.isExecuted();
+        boolean success = user_list_controller.addUser(user, context);
         if (!success) {
             return;
         }
 
+        user_list_controller.removeObserver(this);
+
         // End AddUserActivity
         finish();
+    }
+
+    public void update() {
+        // Not much to update here
     }
 }

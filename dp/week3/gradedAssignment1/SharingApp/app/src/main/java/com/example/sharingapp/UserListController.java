@@ -68,4 +68,8 @@ public class UserListController {
     public void removeObserver(Observer observer) {
         user_list.removeObserver(observer);
     }
+
+    public boolean isUsernameAvailable(String username) {
+        return user_list.isUsernameAvailable(username);
+    }
 }
