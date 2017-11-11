@@ -66,8 +66,12 @@ public class ItemListController {
         return item_list.getActiveBorrowers();
     }
 
-    public ArrayList<Item> filterItemsByStatus(String status){
-        return item_list.filterItemsByStatus(status);
+    public ArrayList<Item> filterAvailableItems() {
+        return item_list.filterAvailableItems();
+    }
+
+    public ArrayList<Item> filterBorrowedItems() {
+        return item_list.filterBorrowedItems();
     }
 
     public void addObserver(Observer observer) {

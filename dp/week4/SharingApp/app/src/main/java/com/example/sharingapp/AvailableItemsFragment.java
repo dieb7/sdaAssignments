@@ -26,6 +26,6 @@ public class AvailableItemsFragment extends ItemsFragment{
 
     public ArrayList<Item> filterItems() {
         String status = "Available";
-        return item_list_controller.filterItemsByStatus(status);
+        return item_list_controller.filterAvailableItems();
     }
 }

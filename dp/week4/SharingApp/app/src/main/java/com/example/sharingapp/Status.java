@@ -25,11 +25,12 @@ public class Status {
     }
 
     public boolean isAvailable() {
-        return status == availableStatus;
+        return status.equals(availableStatus);
+
     }
 
     public boolean isBorrowed() {
-        return status == availableStatus;
+        return status.equals(borrowedStatus);
     }
 
 }

@@ -121,15 +121,26 @@ public class ItemList extends Observable{
         return active_borrowers;
     }
 
-    public ArrayList<Item> filterItemsByStatus(String status){
+    public ArrayList<Item> filterAvailableItems() {
         ArrayList<Item> selected_items = new ArrayList<>();
         for (Item i: items) {
-            if (i.getStatus().equals(status)) {
+            if (i.isAvailable()) {
                 selected_items.add(i);
             }
         }
         return selected_items;
     }
+
+    public ArrayList<Item> filterBorrowedItems() {
+        ArrayList<Item> selected_items = new ArrayList<>();
+        for (Item i: items) {
+            if (i.isBorrowed()) {
+                selected_items.add(i);
+            }
+        }
+        return selected_items;
+    }
+
 }
 
 
