@@ -39,13 +39,12 @@ public class EditUserActivity extends AppCompatActivity implements Observer {
         on_create_update = false;
     }
 
-    public void saveUser(View view) {
-
+    private boolean validateInput() {
         String email_str = email.getText().toString();
 
         if (email_str.equals("")) {
             email.setError("Empty field!");
-            return;
+            return false;
         }
 
         String username_str = username.getText().toString();
@@ -55,7 +54,19 @@ public class EditUserActivity extends AppCompatActivity implements Observer {
         if (!user_list_controller.isUsernameAvailable(username_str) &&
                 !(user.getUsername().equals(username_str))){
             username.setError("Username already taken!");
-            return;
+            return false;
+        }
+
+        return true;
+    }
+
+    public void saveUser(View view) {
+
+        String email_str = email.getText().toString();
+        String username_str = username.getText().toString();
+
+        if (!validateInput()) {
+            return; // invalid input!
         }
 
         // Reuse the user id

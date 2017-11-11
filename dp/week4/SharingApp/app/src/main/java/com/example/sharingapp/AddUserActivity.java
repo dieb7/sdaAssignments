@@ -31,24 +31,35 @@ public class AddUserActivity extends AppCompatActivity {
         user_list_controller.loadUsers(context);
     }
 
-    public void saveUser(View view) {
-
+    private boolean validateInput() {
         String username_str = username.getText().toString();
         String email_str = email.getText().toString();
 
         if (username_str.equals("")) {
             username.setError("Empty field!");
-            return;
+            return false;
         }
 
         if (email_str.equals("")) {
             email.setError("Empty field!");
-            return;
+            return false;
         }
 
         if (!user_list_controller.isUsernameAvailable(username_str)){
             username.setError("Username already taken!");
-            return;
+            return false;
+        }
+
+        return true;
+    }
+
+    public void saveUser(View view) {
+
+        String username_str = username.getText().toString();
+        String email_str = email.getText().toString();
+
+        if (!validateInput()) {
+            return; // invalid input!
         }
 
         User user = new User(username_str, email_str, null);
