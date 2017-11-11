@@ -66,8 +66,20 @@ public class ItemController {
         return item.getHeight();
     }
 
-    public void setStatus(String status) {
-        item.setStatus(status);
+    public void setAvailable() {
+        item.setAvailable();
+    }
+
+    public void setBorrowed() {
+        item.setBorrowed();
+    }
+
+    public boolean isAvailable() {
+        return item.isAvailable();
+    }
+
+    public boolean isBorrowed() {
+        return item.isBorrowed();
     }
 
     public String getStatus() {

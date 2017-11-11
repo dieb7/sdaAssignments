@@ -18,7 +18,7 @@ public class Item extends Observable {
     private String maker;
     private String description;
     private Dimensions dimensions;
-    private String status;
+    private Status status;
     private User borrower;
     protected transient Bitmap image; // Must be transient or app crashes...
     // https://forum.xda-developers.com/android/help/help-android-native-crash-debugging-t3477559
@@ -30,7 +30,7 @@ public class Item extends Observable {
         this.maker = maker;
         this.description = description;
         this.dimensions = null;
-        this.status = "Available";
+        this.status = new Status();
         this.borrower = null;
         addImage(image);
 
@@ -99,13 +99,26 @@ public class Item extends Observable {
         return dimensions.getHeight();
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAvailable() {
+        this.status.setAvailable();
         notifyObservers();
     }
 
+    public void setBorrowed() {
+        this.status.setBorrowed();
+        notifyObservers();
+    }
+
+    public boolean isAvailable() {
+        return this.status.isAvailable();
+    }
+
+    public boolean isBorrowed() {
+        return this.status.isBorrowed();
+    }
+
     public String getStatus() {
-        return status;
+        return status.getStatus();
     }
 
     public void setBorrower(User borrower) {

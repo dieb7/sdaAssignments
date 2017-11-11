@@ -196,7 +196,7 @@ public class EditItemActivity extends AppCompatActivity implements Observer {
         boolean checked = status.isChecked();
         if (!checked) {
             // means borrowed
-            updated_item_controller.setStatus("Borrowed");
+            updated_item_controller.setBorrowed();
             updated_item_controller.setBorrower(user);
         }
 
@@ -223,7 +223,7 @@ public class EditItemActivity extends AppCompatActivity implements Observer {
             borrower_spinner.setVisibility(View.GONE);
             borrower_tv.setVisibility(View.GONE);
             item_controller.setBorrower(null);
-            item_controller.setStatus("Available");
+            item_controller.setAvailable();
 
         } else { // status.isChecked() == false
             // means not borrowed
