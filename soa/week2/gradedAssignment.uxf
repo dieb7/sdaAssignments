@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>304</x>
+      <y>400</y>
+      <w>232</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>BidList
+--
+-bids: ArrayList&lt;Bid&gt;
+--
++loadBids(Context context): void
++saveBids(Context context): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>200</y>
+      <w>232</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>UserList
+--
+-users: ArrayList&lt;User&gt;
+--
++loadUsers(Context context): void
++saveUsers(Context context): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>304</x>
+      <y>624</y>
+      <w>232</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>ItemList
+--
+-items: ArrayList&lt;Item&gt;
+--
++loadItems(Context context): void
++saveItems(Context context): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>776</x>
+      <y>200</y>
+      <w>224</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>User
+--
+-username: String
+-email: String
+-id: String
+--
++getId(): String
++setId(): void
++updateId(String id): void
++getUsername(): String
++setUsername(String username): void
++getEmail(): String
++setEmail(String email): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>392</y>
+      <w>400</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>com.example.sharingapp::Bid
+--
+-item_id: String
+-bid_id: String
+-bid_amount: Float
+-bidder_username: String
+--
++Bid(String item_id, Float bid_amount, String bidder_username): ctor
++getItemId(): String
++setItemId(String item_id): void
++getBidId(): String
++setBidId(): void
++setBidAmount(Float bid_amount): void
++getBidAmount(): Float
++setBidderUsername(String bidder_username): void
++getBidderUsername(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>632</x>
+      <y>624</y>
+      <w>368</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>Item
+--
+-title: String
+-maker: String
+-description: String
+-dimensions: Dimensions
+-status: String
+-minimum_bid: Float
+-borrower: User
+-owner_id: String
+#image: Bitmap
+#image_base64: String
+-id: String
+--
++getId(): String
++setId(): void
++updateId(String id): void
++setTitle(String title): void
++getTitle(): String
++setMaker(String maker): void
++getMaker(): String
++setDescription(String description): void
++getDescription(): String
++getMinBid(): Float
++setMinBid(Float minimum_bid): void
++setOwnerId(String owner_id): void
++getOwnerId(): String
++setDimensions(String length, String width, String height): void
++getLength(): String
++getWidth(): String
++getHeight(): String
++setStatus(String status): void
++getStatus(): String
++setBorrower(User borrower): void
++getBorrower(): User
++getBorrowerUsername(): String
++addImage(Bitmap new_image): void
++getImage(): Bitmap
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>536</x>
+      <y>224</y>
+      <w>256</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0...*</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>648</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0...*</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>424</y>
+      <w>88</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0...*</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+</diagram>
