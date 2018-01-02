@@ -125,7 +125,7 @@ public class ViewItemActivity extends AppCompatActivity implements Observer {
 
         Bid bid = new Bid(item_id, new_bid_amount, username);
 
-        boolean success = bid_list_controller.addBid(bid, context);
+        boolean success = bid_list_controller.addBid(bid);
         if (!success){
             return;
         }

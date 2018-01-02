@@ -22,8 +22,8 @@ public class BidListController {
         return bid_list.getBids();
     }
 
-    public boolean addBid(Bid bid, Context context){
-        AddBidCommand add_bid_command = new AddBidCommand(bid_list, bid, context);
+    public boolean addBid(Bid bid){
+        AddBidCommand add_bid_command = new AddBidCommand(bid);
         add_bid_command.execute();
         return add_bid_command.isExecuted();
     }
