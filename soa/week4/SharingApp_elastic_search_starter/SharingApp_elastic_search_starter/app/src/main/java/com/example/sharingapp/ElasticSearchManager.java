@@ -32,9 +32,10 @@ import io.searchbox.core.SearchResult;
 
 public class ElasticSearchManager {
     private static final String SERVER = "http://34.202.206.222:8080";
-    private static final String INDEX = "203227759"; // TODO: MUST CHANGE THIS to random number string
+    private static final String INDEX = "203227759";
     private static final String ITEM_TYPE = "items";
     private static final String USER_TYPE = "users";
+    private static final String BID_TYPE = "bids";
     private static JestDroidClient client;
 
     /**
@@ -208,6 +209,96 @@ public class ElasticSearchManager {
                     success = true;
                 } else {
                     Log.e("ELASTICSEARCH", "User delete failed");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return success;
+        }
+    }
+
+
+    /**
+     * Returns all remote bids from server
+     */
+    public static class GetBidListTask extends AsyncTask<Void,Void,ArrayList<Bid>> {
+
+        @Override
+        protected ArrayList<Bid> doInBackground(Void... params) {
+            verifyConfig();
+
+            ArrayList<Bid> bids = new ArrayList<>();
+            String search_string = "{\"from\":0,\"size\":10000}";
+
+            Search search = new Search.Builder(search_string).addIndex(INDEX).addType(BID_TYPE).build();
+            try {
+                SearchResult execute = client.execute(search);
+                if (execute.isSucceeded()) {
+                    List<Bid> remote_bids = execute.getSourceAsObjectList(Bid.class);
+                    bids.addAll(remote_bids);
+                    Log.i("ELASTICSEARCH","Bid search was successful");
+                } else {
+                    Log.i("ELASTICSEARCH", "No bids found");
+                }
+            } catch (IOException e) {
+                Log.i("ELASTICSEARCH", "Bid search failed");
+                e.printStackTrace();
+            }
+
+            return bids;
+        }
+    }
+
+    /**
+     * Add bid to remote server
+     */
+    public static class AddBidTask extends AsyncTask<Bid,Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Bid... params) {
+
+            verifyConfig();
+            Boolean success = false;
+            Bid bid = params[0];
+
+            String id = bid.getBidId(); // Explicitly set the id to match the locally generated id
+            Index index = new Index.Builder(bid).index(INDEX).type(BID_TYPE).id(id).build();
+            try {
+                DocumentResult execute = client.execute(index);
+                if(execute.isSucceeded()) {
+                    Log.i("ELASTICSEARCH", "Add bid was successful");
+                    Log.i("ADDED BID", id);
+                    success = true;
+                } else {
+                    Log.e("ELASTICSEARCH", "Add bid failed");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return success;
+        }
+    }
+
+    /**
+     * Delete bid from remote server using bid_id
+     */
+    public static class RemoveBidTask extends AsyncTask<Bid,Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Bid... params) {
+
+            verifyConfig();
+            Boolean success = false;
+            Bid bid_to_delete = params[0];
+            try {
+                DocumentResult execute = client.execute(new Delete.Builder(bid_to_delete.getBidId()).index(INDEX).type(BID_TYPE).build());
+                if(execute.isSucceeded()) {
+                    Log.i("ELASTICSEARCH", "Delete bid was successful");
+                    success = true;
+                } else {
+                    Log.e("ELASTICSEARCH", "Delete bid failed");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
