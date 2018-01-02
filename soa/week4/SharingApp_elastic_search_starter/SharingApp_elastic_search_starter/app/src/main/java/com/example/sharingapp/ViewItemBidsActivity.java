@@ -131,7 +131,7 @@ public class ViewItemBidsActivity extends AppCompatActivity implements Observer 
         String status = item_controller.getStatus();
 
         // Delete selected bid.
-        Boolean success = bid_list_controller.removeBid(bid, context);
+        Boolean success = bid_list_controller.removeBid(bid);
         if (!success){
             return;
         }
