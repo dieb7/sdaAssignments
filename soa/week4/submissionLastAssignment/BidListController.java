@@ -34,7 +34,7 @@ public class BidListController {
         return delete_bid_command.isExecuted();
     }
 
-    public boolean removeItemBids(String id, Context context) {
+    public boolean removeItemBids(String id) {
         DeleteBidCommand delete_bid_command;
         ArrayList<Bid> old_bids = bid_list.getItemBids(id);
 

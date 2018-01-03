@@ -89,7 +89,7 @@ public class ViewItemBidsActivity extends AppCompatActivity implements Observer 
         }
 
         // Delete all bids related to that item.
-        success =  bid_list_controller.removeItemBids(item_id, context);
+        success =  bid_list_controller.removeItemBids(item_id);
         if (!success){
             return;
         }
@@ -202,7 +202,7 @@ public class ViewItemBidsActivity extends AppCompatActivity implements Observer 
         }
 
         // Delete all bids related to that item.
-        success =  bid_list_controller.removeItemBids(item_id, context);
+        success =  bid_list_controller.removeItemBids(item_id);
         if (!success){
             return;
         }
