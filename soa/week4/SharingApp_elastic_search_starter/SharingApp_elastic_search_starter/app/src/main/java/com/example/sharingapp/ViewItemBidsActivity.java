@@ -137,7 +137,6 @@ public class ViewItemBidsActivity extends AppCompatActivity implements Observer 
         }
 
         item_bid_list.remove(bid);
-        bid_list_controller.saveBids(context); // Save the changes, call to update
 
         if (item_bid_list.isEmpty()) {
             status = "Available";

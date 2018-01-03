@@ -21,7 +21,6 @@ import java.util.concurrent.ExecutionException;
  */
 public class BidList extends Observable {
     private static ArrayList<Bid> bids;
-    private String FILENAME = "bids.sav";
 
     public BidList() {
         bids = new ArrayList<Bid>();
@@ -131,23 +130,5 @@ public class BidList extends Observable {
             e.printStackTrace();
         }
         notifyObservers();
-    }
-
-    public boolean saveBids(Context context) {
-        try {
-            FileOutputStream fos = context.openFileOutput(FILENAME, 0);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            Gson gson = new Gson();
-            gson.toJson(bids, osw);
-            osw.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 }

@@ -80,10 +80,6 @@ public class BidListController {
         bid_list.getRemoteBids();
     }
 
-    public boolean saveBids(Context context) {
-        return bid_list.saveBids(context);
-    }
-
     public void addObserver(Observer observer) {
         bid_list.addObserver(observer);
     }
